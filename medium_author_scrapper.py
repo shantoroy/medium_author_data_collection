@@ -17,9 +17,9 @@ def page_info(link):
         while scrolls > 0:
             driver.execute_script(
                 "window.scrollTo(0, document.body.scrollHeight-1000);")
-            time.sleep(6)
+            time.sleep(4)
             scrolls -= 1
-        time.sleep(2)
+        time.sleep(1)
         soup = BeautifulSoup(driver.page_source, 'html.parser')
         driver.quit()
         return soup
@@ -87,7 +87,7 @@ def final_data_collection(final_author_links):
                 following, followers = author_details.get_author_social(user_social_key, json_script)
                 other_post_links, other_post_titles = author_details.get_other_post_links_titles()
                 for item in other_post_links:
-                    time.sleep(3)
+                    time.sleep(2)
 
                     try:
                         title, date, tags, read, claps, voters, contents, responses = get_post_info(item)
@@ -148,5 +148,5 @@ if __name__ == '__main__':
     print(len(author_links_unique))
 
     final_data = final_data_collection(author_links_unique)
-    with open("author_info.json", 'w') as fp:
+    with open("author_info_final.json", 'w') as fp:
         json.dump(final_data, fp)

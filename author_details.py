@@ -87,7 +87,12 @@ class AuthorDetails(object):
             my_tag = "a"
             for i in self.page_soup.find_all('a', {"rel": "noopeneer"}):
                 if i.find('h1'):
-                    other_post_links.append("https://medium.com" + i.get('href').split("?")[0])
+                    new_link = i.get('href').split("?")[0]
+                    if new_link.startswith("http"):
+                        other_post_links.append(new_link)
+                    else:
+                        other_post_links.append("https://medium.com" + new_link)
+
                     other_post_titles.append(i.text)
             return other_post_links, other_post_titles
         except Exception as e:
